@@ -118,8 +118,9 @@ async def pay_pal(callback: types.Message):
 @user_router.message(F.photo)
 async def mes_photo(message: types.Message):
     print(message.from_user.id)
-    await message.answer(text='После проверки я пришлю вам ссылку на канал.')
-    await bot.send_photo(chat_id=54787745, photo=message.photo[-1].file_id, reply_markup=kb2(message.from_user.id)) #54787745
+    if message.chat == 'private':
+        await message.answer(text='После проверки я пришлю вам ссылку на канал.')
+        await bot.send_photo(chat_id=54787745, photo=message.photo[-1].file_id, reply_markup=kb2(message.from_user.id)) #54787745
 
 @user_router.callback_query(F.data.startswith('good'))
 async def pay_good(callback: types.CallbackQuery):
